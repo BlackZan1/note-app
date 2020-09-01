@@ -1,0 +1,16 @@
+.h {
+    width: 100%;
+    background: var(--main-color);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+}
+
+.hLogo {
+    font-size: 32px;
+    font-weight: 500;
+    font-family: var(--main-brand-font);
+    color: #fff;
+    margin-left: 5%;
+}

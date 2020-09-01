@@ -1,0 +1,34 @@
+.sidebarAddBtn {
+    width: 100%;
+}
+
+.sidebarAddForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.sidebarAddForm input, .sidebarAddForm button {
+    max-width: 300px;
+    margin: 15px 0 0;
+}
+
+.sidebarAddForm button {
+    background: var(--main-color);
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+}
+
+.sidebarAddForm button:hover {
+    background: var(--main-color);
+    filter: brightness(90%);
+}
+
+.sidebarAddForm button:focus {
+    background: var(--main-color);
+    filter: brightness(90%);
+}

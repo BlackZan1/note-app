@@ -1,0 +1,29 @@
+.quill, .ql-container {
+    /* height: inherit !important; */
+    height: 89.8vh !important;
+}
+
+.ql-toolbar {
+    height: 40px;
+}
+
+.ant-input {
+    border-radius: 10px !important;
+    height: 40px;
+}
+
+.ant-btn {
+    font-size: 18px !important;
+    height: 40px !important;
+}
+
+.input-fixed.ant-input {
+    border-radius: 0px !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    height: 40px !important;
+}
+
+.ant-modal-content {
+    border-radius: 10px !important;
+}

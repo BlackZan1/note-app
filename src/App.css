@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+
+.main-app {
+  display: grid;
+  grid-template-areas:
+    "h h h"
+    "s e e"
+    "s e e"
+  ;
+  grid-template-columns: 0.7fr 2fr;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main-editor, .main-sidebar {
+  width: 100% !important;
+  min-height: 90vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main-editor {
+  grid-area: e;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-sidebar {
+  grid-area: s;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-right: 1px solid #dcdcdc;
+  height: 95vh;
 }
 
-.App-link {
-  color: #61dafb;
+.main-header {
+  grid-area: h;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.item-active {
+  background: #f3f3f3;
 }
