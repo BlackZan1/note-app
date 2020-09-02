@@ -2,7 +2,7 @@ import React from 'react';
 
 import WrapperItem from '../../WrapperItem/WrapperItem';
 
-const SidebarWrapper = ({ notes, selectedNoteIndex, onDeleteHandler, setNote, deleteNote }) => {
+const SidebarWrapper = ({ notes, resetNoteBody, selectedNoteIndex, onDeleteHandler, setNote, deleteNote }) => {
     debugger;
     
     return (
@@ -13,6 +13,7 @@ const SidebarWrapper = ({ notes, selectedNoteIndex, onDeleteHandler, setNote, de
                     const isSelected = note.id === selectedNoteIndex;
 
                     return <WrapperItem 
+                        resetNoteBody={resetNoteBody}
                         setNote={setNote}
                         deleteNote={deleteNote}
                         key={note.id}

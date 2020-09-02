@@ -9,6 +9,8 @@ import Header from './components/Header/Header';
 
 import './App.css';
 import './Antd.css';
+import { LocalStorage } from './hooks/locale.storage';
+import { Auth } from './service/auth';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class App extends React.Component {
     this.updateNote = this.updateNote.bind(this);
     this.addNewNote = this.addNewNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
+    this.resetNoteBody = this.resetNoteBody.bind(this);
 
     this.firestore = firebase.firestore();
   }
@@ -31,7 +34,7 @@ class App extends React.Component {
     isFetching: true
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.firestore
     .collection('notes')
     .onSnapshot(server => {
@@ -50,6 +53,15 @@ class App extends React.Component {
         isFetching: false
       }))
     })
+
+    const ls = new LocalStorage();
+    const auth = new Auth();
+
+    const token = ls.get('airi_t');
+
+    if(!!token) {
+      await auth.withToken(token);
+    }
   }
 
   async onDeleteHandler(id) {
@@ -105,6 +117,34 @@ class App extends React.Component {
     }))
   }
 
+  async resetNoteBody(id, title) {
+    const { notes } = this.state;
+
+    await this.firestore
+    .collection('notes')
+    .doc(id)
+    .update({
+      title,
+      body: '',
+      timestamp: Date.now()
+    })
+
+    let filteredNotes = notes.map((note) => {
+      if(note.id === id) {
+        note.body = '';
+      }
+
+      return note;
+    })
+
+    this.setState((state) => ({
+      ...state,
+      notes: filteredNotes
+    }))
+
+    this.setNote({ id, title, body: '' }, id);
+  }
+
   async addNewNote(title) {
     const { notes } = this.state;
 
@@ -146,6 +186,7 @@ class App extends React.Component {
               setNote={this.setNote}
               addNewNote={this.addNewNote}
               deleteNote={this.deleteNote}
+              resetNoteBody={this.resetNoteBody}
             />
         
             <Editor updateNote={this.updateNote} note={selectedNote} />

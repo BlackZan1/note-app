@@ -6,7 +6,7 @@ import SidebarWrapper from './SidebarWrapper/SidebarWrapper';
 
 import styles from './Sidebar.module.css';
 
-const Sidebar = ({ notes, selectedNoteIndex, onDeleteHandler, setNote, addNewNote, deleteNote }) => {
+const Sidebar = ({ notes, selectedNoteIndex, onDeleteHandler, setNote, addNewNote, resetNoteBody, deleteNote }) => {
     const [ isAdding, setIsAdding ] = useState(false);
     const [ title, setTitle ] = useState('');
 
@@ -52,6 +52,7 @@ const Sidebar = ({ notes, selectedNoteIndex, onDeleteHandler, setNote, addNewNot
             }
 
             <SidebarWrapper 
+                resetNoteBody={resetNoteBody}
                 onDeleteHandler={onDeleteHandler} 
                 notes={notes} 
                 selectedNoteIndex={selectedNoteIndex} 

@@ -4,7 +4,7 @@
     height: 56px;
     display: flex;
     align-items: center;
-    align-content: space-between;
+    justify-content: space-between;
 }
 
 .hLogo {
@@ -13,4 +13,32 @@
     font-family: var(--main-brand-font);
     color: #fff;
     margin-left: 5%;
+}
+
+.hAuth {
+    padding-right: 2rem;
+}
+
+.hAuth button {
+    background: #fff;
+    margin: 0 1rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.hAuth button:hover {
+    background: #f2f2f2;
+    color: #000;
+}
+
+.hAuth button:first-child {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.hAuth button:first-child:hover {
+    background: #fff;
+    color: var(--main-color);
 }

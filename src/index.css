@@ -28,3 +28,53 @@ button {
 button:focus, input:focus, a:focus {
   outline: none;
 }
+
+.save-btn {
+  position: absolute;
+  bottom: 4rem;
+  right: 4.5rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  animation: fadeIn .4s ease;
+  box-shadow: 1px 1px 6px #a9a9a9;
+}
+
+.save-btn div {
+  background: rgb(28, 184, 28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: inherit;
+  height: inherit;
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+  transition: all .3s ease;
+}
+
+.save-btn div:hover {
+  background: rgb(28, 163, 28);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.text-error {
+  color: crimson;
+  font-size: 17px;
+  display: block;
+}

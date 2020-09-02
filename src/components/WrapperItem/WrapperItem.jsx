@@ -6,7 +6,7 @@ import { removeHTMLtags } from '../../utils/textHelper';
 import styles from './WrapperItem.module.css';
 import { Modal } from 'antd';
 
-const WrapperItem = ({ title, body, isSelected, id, setNote, deleteNote }) => {
+const WrapperItem = ({ title, body, isSelected, id, setNote, deleteNote, resetNoteBody }) => {
     let classname = styles.wrapperItem;
     let innerText = body;
 
@@ -35,6 +35,19 @@ const WrapperItem = ({ title, body, isSelected, id, setNote, deleteNote }) => {
         })
     }
 
+    const onResetBodyHandler = () => {
+        Modal.confirm({
+            icon: <AiFillQuestionCircle style={{ fontSize: '24px', color: 'crimson' }} />,
+            content: 'Do you want to reset body of this note?',
+            onOk() {
+                resetNoteBody(id, title);
+            },
+            onCancel() {
+                console.log('Canceled');
+            }
+        })
+    }
+
     return (
         <div className={ classname } onClick={() => setNote({ title, body, id }, id)}>
             <div className={ styles.wrapperItem_info }>
@@ -45,7 +58,7 @@ const WrapperItem = ({ title, body, isSelected, id, setNote, deleteNote }) => {
 
             <div style={{ display: 'flex' }}>
                 <button>
-                    <AiOutlineClear />
+                    <AiOutlineClear onClick={onResetBodyHandler} />
                 </button>
                 
                 <button>
