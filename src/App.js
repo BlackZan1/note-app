@@ -9,8 +9,6 @@ import Header from './components/Header/Header';
 
 import './App.css';
 import './Antd.css';
-import { LocalStorage } from './hooks/locale.storage';
-import { Auth } from './service/auth';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,6 +20,7 @@ class App extends React.Component {
     this.addNewNote = this.addNewNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
     this.resetNoteBody = this.resetNoteBody.bind(this);
+    this.setUserData = this.setUserData.bind(this);
 
     this.firestore = firebase.firestore();
   }
@@ -31,10 +30,38 @@ class App extends React.Component {
     notes: [],
     selectedNoteIndex: null,
     selectedNote: null,
-    isFetching: true
+    isFetching: true,
+    userData: {}
   }
 
-  async componentDidMount() {
+  componentDidUpdate() {
+    if(this.state.userData.email) {
+      this.firestore
+      .collection('notes')
+      .onSnapshot(server => {
+        const notes = server.docs.map(doc => {
+          const data = doc.data();
+          data['id'] = doc.id;
+
+          if(data.owner === this.state.userData.uid) {
+            return data;
+          }
+
+          return;
+        })
+
+        // this.changeStoreState('notes', notes);
+
+        this.setState((state) => ({
+          ...state,
+          notes,
+          isFetching: false
+        }))
+      })
+    }
+  }
+
+  componentDidMount() {
     this.firestore
     .collection('notes')
     .onSnapshot(server => {
@@ -53,15 +80,13 @@ class App extends React.Component {
         isFetching: false
       }))
     })
+  }
 
-    const ls = new LocalStorage();
-    const auth = new Auth();
-
-    const token = ls.get('airi_t');
-
-    if(!!token) {
-      await auth.withToken(token);
-    }
+  setUserData(data) {
+    this.setState((state) => ({
+      ...state,
+      userData: data
+    }))
   }
 
   async onDeleteHandler(id) {
@@ -172,7 +197,7 @@ class App extends React.Component {
 
     return (
       <div className='main-app'>
-        <Header />
+        <Header setUserData={this.setUserData} />
 
         {
           isFetching ?

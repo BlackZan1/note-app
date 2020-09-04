@@ -3,9 +3,8 @@ import Modal from 'antd/lib/modal/Modal';
 import { Button, Input } from 'antd';
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 import { Auth } from '../../service/auth';
-import { LocalStorage } from '../../hooks/locale.storage';
 
-const Login = ({ isVisible, toggleMode }) => {
+const Login = ({ isVisible, toggleMode, setUserData }) => {
     const [data, setData] = useState({
         email: '',
         password: ''
@@ -50,9 +49,11 @@ const Login = ({ isVisible, toggleMode }) => {
                 }))
             }
 
-            console.log(res)
-
-            new LocalStorage().set('airi_t', res.xa);
+            setUserData({
+                email: res.email,
+                img: res.photoURL,
+                uid: res.uid
+            })
         }
         else {
             console.log('NO')

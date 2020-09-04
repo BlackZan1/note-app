@@ -4,20 +4,21 @@ import { Button, Input } from 'antd';
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 import { Auth } from '../../service/auth';
 
-const Signup = ({ isVisible, toggleMode }) => {
-    const [data, setData] = useState({
+const Signup = ({ isVisible, toggleMode, setUserData }) => {
+    const [ data, setData ] = useState({
         email: '',
         password: ''
     })
-    const [touched, setTouched] = useState({
+    const [ touched, setTouched ] = useState({
         email: false,
         password: false
     })
-    const [errors, setErros] = useState({
+    const [ errors, setErros ] = useState({
         email: '',
         password: '',
         form: ''
     })
+    const [ file, setFile ] = useState(null);
 
     const onChangeHandler = (ev) => {
         const { name, value } = ev.currentTarget;
@@ -73,7 +74,7 @@ const Signup = ({ isVisible, toggleMode }) => {
     const onSubmitHandler = async () => {
         if(validate()) {
             const auth = new Auth(data.email, data.password);
-            const res = await auth.signup();
+            const res = await auth.signup(file);
 
             if(res.code) {
                 setErros((state) => ({
@@ -81,7 +82,19 @@ const Signup = ({ isVisible, toggleMode }) => {
                     form: res.message
                 }))
             }
+
+            setUserData({
+                email: res.email,
+                img: res.photoURL,
+                uid: res.uid
+            })
         }
+    }
+
+    const onUploadImgHandler = async (ev) => {
+        const file = ev.currentTarget.files[0];
+
+        setFile(file);
     }
 
     let isOk = !!data.email.trim().length && !!data.password.trim().length;
@@ -135,6 +148,10 @@ const Signup = ({ isVisible, toggleMode }) => {
             {
                 !!errors.form && <p style={{ margin: '1rem auto' }} className='text-error'>{ errors.form }</p>
             }
+
+            <label style={{ fontSize: '20px', fontWeight: '500' }} htmlFor="file">Avatar: &nbsp;</label>
+
+            <input title='LOLO' type='file' name='file' onChange={onUploadImgHandler} />
         </Modal>
     )
 }

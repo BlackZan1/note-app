@@ -6,7 +6,7 @@ import Signup from '../Modal/Signup';
 
 import styles from './Header.module.css';
 
-const Header = () => {
+const Header = ({ setUserData }) => {
     const [isLogin, setIsLogin] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
 
@@ -38,9 +38,9 @@ const Header = () => {
             </div>
         </header>
 
-        <Login toggleMode={toggleMode} isVisible={isLogin} />
+        <Login setUserData={setUserData} toggleMode={toggleMode} isVisible={isLogin} />
 
-        <Signup toggleMode={toggleMode} isVisible={isSignup} />
+        <Signup setUserData={setUserData} toggleMode={toggleMode} isVisible={isSignup} />
     </Fragment>
 }
 
